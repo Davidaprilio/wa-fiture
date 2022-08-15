@@ -2,9 +2,9 @@
 
 namespace DavidArl\WaFiture\Tests;
 
+use DavidArl\WaFiture\WaFitureServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use DavidArl\WaFiture\WaFitureServiceProvider;
 
 class TestCase extends Orchestra
 {

@@ -2,9 +2,9 @@
 
 namespace DavidArl\WaFiture;
 
+use DavidArl\WaFiture\Commands\WaFitureCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use DavidArl\WaFiture\Commands\WaFitureCommand;
 
 class WaFitureServiceProvider extends PackageServiceProvider
 {
