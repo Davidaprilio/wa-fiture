@@ -3,6 +3,7 @@
 namespace DavidArl\WaFiture;
 
 use DavidArl\WaFiture\Commands\WaFitureCommand;
+use Illuminate\Support\Facades\Blade;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -10,16 +11,48 @@ class WaFitureServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
-        /*
-         * This class is a Package Service Provider
-         *
-         * More info: https://github.com/spatie/laravel-package-tools
-         */
         $package
             ->name('wa-fiture')
             ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_wa-fiture_table')
+            ->hasViews('wafiture')
+            ->hasRoute('web');
+
+        // Migrations
+        $package
+            ->hasMigration('create_wa_servers_table')
+            ->hasMigration('create_devices_table')
+            ->hasMigration('create_contacts_table')
+            ->hasMigration('create_notifications_table')
+            ->hasMigration('create_messages_table');
+
+        // Commands
+        $package
             ->hasCommand(WaFitureCommand::class);
+    }
+
+    public function packageBooted()
+    {
+        $this->loadAllComponent();
+    }
+
+    protected function loadAllComponent()
+    {
+        $this->registerComponent('layout');
+
+        $this->registerComponent('server.table');
+        $this->registerComponent('server.form-save');
+
+        $this->registerComponent('device.scan-box');
+    }
+
+    /**
+     * Register the given component.
+     *
+     * @param  string  $component
+     * @return void
+     */
+    protected function registerComponent(string $component)
+    {
+        Blade::component("wafiture::components.{$component}", "wa-{$component}");
     }
 }

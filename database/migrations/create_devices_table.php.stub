@@ -1,0 +1,43 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('devices', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('wa_server_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->enum('mode', ['md', 'std'])->default('md');
+            $table->string('status')->default('NOT AUTHENTICATED');
+
+            // push data wa
+            $table->string('name')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('photo')->nullable();
+
+            $table->string('device_key')->nullable();
+            $table->boolean('use_notification')->default(false);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('devices');
+    }
+};

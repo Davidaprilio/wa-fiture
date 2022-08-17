@@ -1,0 +1,44 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('messages', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->comment('user yang punya message'); // Jika ada kesalahan insert bisa di crosscheck
+            $table->string('process_id')->comment('id proses blast (satu pengiriman massal)');
+            $table->foreignId('next_message_id')->nullable();
+            $table->string('text');
+            $table->string('phone');
+            $table->string('timestamp')->nullable();
+            $table->string('report')->nullable();
+            $table->string('message_id')->nullable()->comment('id message dari whatsapp');
+            $table->dateTime('sent_at')->nullable();
+            $table->enum('status', ['sending', 'sent', 'read', 'not-wa', 'offline', 'fail'])->default('sending');
+            $table->string('selected_button_text')->nullable()->comment("Tampungan jawaban yang dipilih");
+            $table->boolean('once_selection')->default(false)->nullable("Jika true maka jawaban tidak bisa diubah pilih 1x saja");
+            $table->json('payload');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('messages');
+    }
+};

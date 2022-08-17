@@ -1,0 +1,1 @@
+<img src="https://via.placeholder.com/500?text=QR_Code  " alt="">
