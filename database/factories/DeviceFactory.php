@@ -15,7 +15,7 @@ class DeviceFactory extends Factory
             'wa_server_id' => 1,
             'user_id' => 1,
             'mode' => 'md',
-            'device_key' => Str::random(10)
+            'device_key' => Str::random(10),
         ];
     }
 }

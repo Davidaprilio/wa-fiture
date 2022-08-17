@@ -30,22 +30,25 @@ class Device extends Model
     public function generateApiKey()
     {
         $this->api_key = str()->random(60);
+
         return $this->save();
     }
 
     /**
-     * @param String|Int|WaServer $server bisa berupa id, nama, server atau model dari WaServer
+     * @param  string|int|WaServer  $server bisa berupa id, nama, server atau model dari WaServer
      */
     public function changeServer($server)
     {
-        if (!($server instanceof WaServer)) { // if not instance of WaServer
+        if (! ($server instanceof WaServer)) { // if not instance of WaServer
             $server = WaServer::where('id', $server)->orWhere('name', $server)->first();
             if ($server == null) {
                 Log::debug("Can't change server to $server, server not found");
+
                 return false;
             }
         }
         $this->wa_server_id = $server->id;
+
         return $this->save();
     }
 }

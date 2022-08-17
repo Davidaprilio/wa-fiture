@@ -18,6 +18,7 @@ class WaFitureCommand extends Command
             $this->line('Jika benar ingin menginstall ubah .env ke:');
             $this->line('APP_ENV=development');
             $this->line('APP_DEBUG=true');
+
             return 1;
         }
 
@@ -25,10 +26,10 @@ class WaFitureCommand extends Command
         Artisan::call('vendor:publish --tag="wa-fiture-migrations"');
         Artisan::call('migrate');
 
-
         $this->line('  WaFiture berhasil diinstall', 'info');
         $this->newLine(2);
         $this->line('~~~ SELAMAT MENGODING RIA ~~~');
+
         return self::SUCCESS;
     }
 }

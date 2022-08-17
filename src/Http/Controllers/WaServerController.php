@@ -2,10 +2,9 @@
 
 namespace DavidArl\WaFiture\Http\Controllers;
 
+use DavidArl\WaFiture\Models\WaServer;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use DavidArl\WaFiture\Models\WaServer;
-use Illuminate\Support\Facades\Log;
 
 class WaServerController extends Controller
 {
@@ -17,6 +16,7 @@ class WaServerController extends Controller
         if ($request->ajax()) {
             return DataTables::of(WaServer::query())->toJson();
         }
+
         return view('wafiture::server.index');
     }
 
@@ -58,6 +58,7 @@ class WaServerController extends Controller
                 'message' => $msg,
             ]);
         }
+
         return redirect()->back()->with('success', $msg);
     }
 
@@ -65,7 +66,7 @@ class WaServerController extends Controller
     {
         $WaServer = WaServer::findOrFail($request->id);
         $WaServer->status == 'enable' ?
-            $WaServer->makeDisable()  :
+            $WaServer->makeDisable() :
             $WaServer->makeEnable();
         $WaServer->refresh();
         $msg = "Server {$WaServer->name} has been {$WaServer->status}d!";
@@ -75,6 +76,7 @@ class WaServerController extends Controller
                 'message' => $msg,
             ]);
         }
+
         return redirect()->back()->with('success', $msg);
     }
 }
