@@ -53,16 +53,16 @@ class Whatsapp
 
     /**
      * Insert Your Message Copywriting here
-     * 
-     * Default variable : 
-     *  _hours = "16:44"      
-     *  _day = 29  |   _month = 8  |   _year = 2022  |  
-     *  _dayName = "senin"  |   _monthName = "agustus"  |  
-     *  _DayName = "Senin"  |   _MonthName = "Agustus"  |  
+     *
+     * Default variable :
+     *  _hours = "16:44"
+     *  _day = 29  |   _month = 8  |   _year = 2022  |
+     *  _dayName = "senin"  |   _monthName = "agustus"  |
+     *  _DayName = "Senin"  |   _MonthName = "Agustus"  |
      *  _time = "sore"  |   _Time = "Sore"
-     * 
-     * @param String|Array $text Message copywriting include variable and spintext
-     * @param String $prefix Prefix for variable format,  Default ':var'   Example :var use :_dayName | [var] use [_dayName]
+     *
+     * @param  string|array  $text Message copywriting include variable and spintext
+     * @param  string  $prefix Prefix for variable format,  Default ':var'   Example :var use :_dayName | [var] use [_dayName]
      */
     public function copywriting($text, string $prefix = null): Whatsapp
     {
@@ -108,7 +108,7 @@ class Whatsapp
      */
     public function to($phone): Whatsapp
     {
-        if (!is_array($phone)) {
+        if (! is_array($phone)) {
             $phone = explode(',', $phone);
         }
 
@@ -190,7 +190,7 @@ class Whatsapp
      */
     public static function device($device)
     {
-        if (!($device instanceof Device)) {
+        if (! ($device instanceof Device)) {
             $device = Device::find($device);
         }
 
