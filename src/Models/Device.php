@@ -29,7 +29,7 @@ class Device extends Model
         return $query->where('wa_server_id', $server_id);
     }
 
-    public function generateKey()
+    public function generateApiKey()
     {
         $this->device_key = str()->random(60);
         return $this->save();

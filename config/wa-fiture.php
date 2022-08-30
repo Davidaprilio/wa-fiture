@@ -5,8 +5,7 @@ return [
     /**
      * If enabled, WaFiture check permission in every fiture
      * use permission from spatie/laravel-permission
-     * 
      */
-    "use-permissions" => true,
+    'use-permissions' => true,
 
 ];
