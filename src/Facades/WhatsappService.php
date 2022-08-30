@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @see \DavidArl\WaFiture\WhatsappService
+ *
  * @method static \DavidArl\WaFiture\WhatsappService device(Device $device)
  */
 class WhatsappService extends Facade

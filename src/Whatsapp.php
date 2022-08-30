@@ -8,14 +8,20 @@ use DavidArl\WaFiture\Models\Device;
 
 class Whatsapp
 {
-
     protected $copywriting = '';
+
     protected $text_message = '';
+
     protected $message_type = 'text';
+
     protected $payload = [];
+
     protected $data = [];
+
     protected $prefix_variable = ':var';
+
     protected Device $device;
+
     protected $phones = [];
 
     public function __construct(Device $device)
@@ -30,7 +36,7 @@ class Whatsapp
             '_DayName' => $now->dayName,
             '_MonthName' => $now->monthName,
             '_hours' => $now->format('H:i'),
-            '_day'  => $now->day,
+            '_day' => $now->day,
             '_month' => $now->month,
             '_year' => $now->year,
             '_time' => $dayTime,
@@ -41,9 +47,9 @@ class Whatsapp
     public function data(array $data)
     {
         $this->data = array_merge($this->data, $data);
+
         return $this;
     }
-
 
     /**
      * Insert Your Message Copywriting here
@@ -87,7 +93,7 @@ class Whatsapp
 
     // /**
     //  * Sending to given contact Model
-    //  * 
+    //  *
     //  * @param string|array $contact
     //  */
     // public function contact(Contact $contact)
@@ -97,8 +103,8 @@ class Whatsapp
 
     /**
      * Sending to given phone or jid
-     * 
-     * @param string|array $phone phone or jid format ['xxxx', 'xxxx'] | 'xxxx' | 'xxxx,xxxx'
+     *
+     * @param  string|array  $phone phone or jid format ['xxxx', 'xxxx'] | 'xxxx' | 'xxxx,xxxx'
      */
     public function to($phone): Whatsapp
     {
@@ -107,12 +113,13 @@ class Whatsapp
         }
 
         $this->phones = array_merge($this->phones, $phone);
+
         return $this;
     }
 
-
     /**
      * Sending message
+     *
      * @param $phone If given phone, message will be sent to this phone only
      */
     public function send(string $phone = null)
@@ -153,10 +160,6 @@ class Whatsapp
         return (object) $report->first();
     }
 
-
-
-
-
     public function save()
     {
         $data = [
@@ -179,12 +182,10 @@ class Whatsapp
         return $this;
     }
 
-
     /**
      * Set sender device
-     * 
-     * @param Device|Int $device Device model or device id for sending message
-     * 
+     *
+     * @param  Device|int  $device Device model or device id for sending message
      * @return Whatsapp
      */
     public static function device($device)
@@ -192,13 +193,15 @@ class Whatsapp
         if (!($device instanceof Device)) {
             $device = Device::find($device);
         }
+
         return new self($device);
     }
 
     public static function spintext($text)
     {
-        return preg_replace_callback("/{(.*?)}/", function ($match) {
-            $words = explode("|", $match[1]);
+        return preg_replace_callback('/{(.*?)}/', function ($match) {
+            $words = explode('|', $match[1]);
+
             return $words[array_rand($words)];
         }, $text);
     }
@@ -229,19 +232,18 @@ class Whatsapp
         $hour = Carbon::now()->hour;
         if ($hour >= 3 && $hour <= 10) {
             return $textTime['morning'][$local];
-        } else if ($hour >= 11 && $hour <= 15) {
+        } elseif ($hour >= 11 && $hour <= 15) {
             return $textTime['afternoon'][$local];
-        } else if ($hour >= 15 && $hour <= 20) {
+        } elseif ($hour >= 15 && $hour <= 20) {
             return $textTime['evening'][$local];
         } else {
             return $textTime['night'][$local];
         }
     }
 
-
     public static function printText(array $string): string
     {
-        $text = "";
+        $text = '';
         $first = true;
         foreach ($string as $s) {
             ($first) ?
@@ -250,6 +252,7 @@ class Whatsapp
 
             $text .= "{$s}";
         }
+
         return $text;
     }
 

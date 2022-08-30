@@ -12,21 +12,24 @@ use Exception;
 trait ControlDevice
 {
     protected ?Device $device = null;
+
     protected $mode = ['md', 'std'];
+
     protected $status = [
         'auth' => 'AUTHENTICATED',
         'not_auth' => 'NOT AUTHENTICATED',
     ];
 
     /**
-     * @param Device|Int $device device model or id
+     * @param  Device|int  $device device model or id
      */
     public function device($device)
     {
-        if (!($device instanceof Device)) {
+        if (! ($device instanceof Device)) {
             $device = Device::find($device);
         }
         $this->device = $device;
+
         return $this;
     }
 
@@ -49,7 +52,6 @@ trait ControlDevice
             ->start();
     }
 
-
     /**
      * Logout Device
      */
@@ -60,11 +62,11 @@ trait ControlDevice
         $this->device->update([
             'status' => $this->status['not_auth'],
             'phone' => null,
-            'photo' => null
+            'photo' => null,
         ]);
+
         return $result;
     }
-
 
     /**
      * Restart Device (logout and Start)
@@ -73,10 +75,9 @@ trait ControlDevice
     {
         $this->logout();
         $res = $this->start();
+
         return $res;
     }
-
-
 
     /**
      * Get Device Status and Get QRcode
@@ -94,43 +95,43 @@ trait ControlDevice
                 $device->update([
                     'photo' => $result->pic ?? null,
                     'status' => $this->status['auth'],
-                    'phone' => $phone
+                    'phone' => $phone,
                 ]);
             }
-        } else if ($result->message == 'token tidak tersedia') {
-            $status = "Device+Offline";
+        } elseif ($result->message == 'token tidak tersedia') {
+            $status = 'Device+Offline';
         } else {
             $device->update([
                 'mode' => $result->mode ?? $device->mode,
                 'status' => $this->status['not_auth'],
                 'photo' => null,
-                'phone' => null
+                'phone' => null,
             ]);
         }
-        $status = $status ?? "Loading...";
+        $status = $status ?? 'Loading...';
         $result->image = $result->pic ?? $result->qrcode ?? "https://via.placeholder.com/500?text={$status}";
         $result->phone = $phone ?? null;
         $result->server = $device->server_id;
-        $result->mode =  $result->mode ?? $device->mode;
+        $result->mode = $result->mode ?? $device->mode;
+
         return $result;
     }
 
-
     protected function hasMode($mode): string
     {
-        if (!in_array($mode, $this->mode)) {
-            throw new Exception("Device mode '{$mode}' not found enums: " . implode(', ', $this->mode));
+        if (! in_array($mode, $this->mode)) {
+            throw new Exception("Device mode '{$mode}' not found enums: ".implode(', ', $this->mode));
         }
+
         return $mode;
     }
-
 
     protected function validateDevice(): void
     {
         if ($this->device == null) {
             throw new Exception('Device not set');
         }
-        if (!($this->device instanceof Device)) {
+        if (! ($this->device instanceof Device)) {
             throw new Exception('Device not instance of Device Model');
         }
     }
