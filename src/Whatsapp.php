@@ -56,15 +56,16 @@ class Whatsapp
      *  _time = "sore"  |   _Time = "Sore"
      * 
      * @param String|Array $text Message copywriting include variable and spintext
-     * @param String $prefix Prefix for variable format, Example :var use :_dayName | [var] use [_dayName]
+     * @param String $prefix Prefix for variable format,  Default ':var'   Example :var use :_dayName | [var] use [_dayName]
      */
-    public function copywriting($text, string $prefix = ':var'): Whatsapp
+    public function copywriting($text, string $prefix = null): Whatsapp
     {
+        $this->setPrefix($prefix);
+        $prefix = $this->getPrefix();
         if (is_array($text)) {
             $text = self::printText($text);
         }
         $this->copywriting = $text;
-        $this->prefix_variable = $prefix;
 
         $this->text_message = $this->copywriting;
         foreach ($this->data as $key => $value) {
@@ -138,7 +139,7 @@ class Whatsapp
             ]);
 
             $report->push([
-                'to' => $phone,
+                'to' => $phoneAndJID,
                 'status' => $res->status,
                 'message' => $res->message,
                 'data' => $res,
@@ -250,5 +251,19 @@ class Whatsapp
             $text .= "{$s}";
         }
         return $text;
+    }
+
+    private function setPrefix(?string $prefix): void
+    {
+        if ($prefix == null) {
+            $this->prefix_variable = config('wa-fiture.prefix-variable');
+        } else {
+            $this->prefix_variable = $prefix;
+        }
+    }
+
+    public function getPrefix(): string
+    {
+        return $this->prefix_variable;
     }
 }
