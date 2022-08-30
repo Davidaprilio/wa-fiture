@@ -6,9 +6,11 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @author David Arl
+ *
  * @see \DavidArl\WaFiture\WaFiture
+ *
  * @property Device $device
- * 
+ *
  * @method static \DavidArl\WaFiture\WaFiture device(Device $device)
  * @method public object getQRandStatus()
  */
