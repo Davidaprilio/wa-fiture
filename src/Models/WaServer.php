@@ -18,14 +18,19 @@ class WaServer extends Model
         return $this->hasMany(Device::class);
     }
 
-    public function scopeEnabled()
+    public function scopeEnable()
     {
         return $this->where('status', 'enable');
     }
 
-    public function scopeDisabled()
+    public function scopeDisable()
     {
         return $this->where('status', 'disable');
+    }
+
+    public function scopeAvailable()
+    {
+        return $this->withCount('devices')->having('devices_count', '>', 'max_devices')->enable();
     }
 
     public function makeDisable()

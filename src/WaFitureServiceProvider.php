@@ -38,10 +38,14 @@ class WaFitureServiceProvider extends PackageServiceProvider
     protected function loadAllComponent()
     {
         $this->registerComponent('layout');
+        $this->registerComponent('script');
 
         $this->registerComponent('server.table');
         $this->registerComponent('server.form-save');
 
+        $this->registerComponent('device.table');
+        $this->registerComponent('device.btn-restart');
+        $this->registerComponent('device.btn-logout');
         $this->registerComponent('device.scan-box');
     }
 

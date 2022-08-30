@@ -21,7 +21,7 @@
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
+    <x-wa-script />
     <script>
         function formAjax(id, func) {
             const form = $(`#${id}`);
@@ -45,23 +45,6 @@
             $.ajax(option)
         }
 
-        // Validation error laravel to input bootstrap 
-        function renderErrorValidation(err) {
-            const errors = err?.responseJSON?.errors ?? null
-            if (errors) {
-                for (name in errors) {
-                    const input = $(`input[name=${name}]`)
-                    const formGroup = input.parent()
-                    input.addClass('is-invalid')
-                    if (formGroup.children('small.invalid-feedback').get(0) == undefined) {
-                        formGroup.append(`<small class='invalid-feedback'>${errors[name][0]}</small>`)
-                    } else {
-                        formGroup.children('small.invalid-feedback').text(errors[name][0])
-                    }
-                }
-            }
-        }
-
         function toast(type, msg, title) {
             toastr[type](msg, title);
         }
@@ -75,6 +58,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
     </script>
+
+    {{ $js }}
 
 </body>
 
