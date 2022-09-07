@@ -2,7 +2,6 @@
 
 namespace DavidArl\WaFiture;
 
-use Carbon\Carbon;
 use DavidArl\WaFiture\Facades\WhatsappService;
 use DavidArl\WaFiture\Models\Device;
 
@@ -32,6 +31,7 @@ class Whatsapp
     {
         $this->data = $data;
         $this->_copywriting->data($data);
+
         return $this;
     }
 
@@ -56,6 +56,7 @@ class Whatsapp
         }
         $this->_copywriting->make();
         $this->text_message = $this->_copywriting->get();
+
         return $this;
     }
 
@@ -84,10 +85,11 @@ class Whatsapp
      */
     public function to($phone): Whatsapp
     {
-        if (!is_array($phone)) {
+        if (! is_array($phone)) {
             $phone = explode(',', $phone);
         }
         $this->phones = array_merge($this->phones, $phone);
+
         return $this;
     }
 
@@ -152,6 +154,7 @@ class Whatsapp
             'text' => $text,
             'id' => $id,
         ];
+
         return $this;
     }
 
@@ -163,9 +166,10 @@ class Whatsapp
      */
     public static function device($device)
     {
-        if (!($device instanceof Device)) {
+        if (! ($device instanceof Device)) {
             $device = Device::find($device);
         }
+
         return new self($device);
     }
 }

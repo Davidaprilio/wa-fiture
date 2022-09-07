@@ -5,13 +5,13 @@ namespace DavidArl\WaFiture\Traits;
 use App\Models\User;
 use DavidArl\WaFiture\Models\WaServer;
 use DavidArl\WaFiture\Whatsapp;
-use Illuminate\Support\Facades\Log;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 /**
- * Use this trait in your model Device 
+ * Use this trait in your model Device
  * to make amazing action with Whatsapp
- * 
+ *
  * -- Hope this Trait helps you
  */
 trait DeviceHasWhatsapp
@@ -34,6 +34,7 @@ trait DeviceHasWhatsapp
     public function generateApiKey()
     {
         $this->device_key = str()->random(60);
+
         return $this->save();
     }
 
@@ -42,7 +43,7 @@ trait DeviceHasWhatsapp
      */
     public function changeServer($server)
     {
-        if (!($server instanceof WaServer)) { // if not instance of WaServer
+        if (! ($server instanceof WaServer)) { // if not instance of WaServer
             $server = WaServer::where('id', $server)->orWhere('name', $server)->first();
             if ($server == null) {
                 Log::debug("Server Not Found, Can't change server to $server");
@@ -62,7 +63,7 @@ trait DeviceHasWhatsapp
      */
     public static function new(string $name, $user, $server = null): self
     {
-        if (!($user instanceof User)) {
+        if (! ($user instanceof User)) {
             $user = User::find($user);
             if ($user == null) {
                 throw new Exception("User Not Found, Can't create device for user $user", 500);
@@ -71,7 +72,7 @@ trait DeviceHasWhatsapp
             }
         }
 
-        if (!($server instanceof WaServer)) { // if not instance of WaServer
+        if (! ($server instanceof WaServer)) { // if not instance of WaServer
             $server = WaServer::where('id', $server)->orWhere('name', $server)->first();
             if ($server == null) {
                 throw new Exception("Server Not Found, Can't change server to $server", 500);

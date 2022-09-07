@@ -13,26 +13,37 @@ use Illuminate\Support\Str;
 class MessageBuilder
 {
     private string $title;
+
     private ?Device $device;
+
     private ?int $user_id;
+
     private ?string $copywriting;
+
     private string $process_id;
+
     private bool $auto_create_table = false;
+
     private int $priority = 10;
+
     private string $type = 'text';
+
     private array $data = [];
+
     private $now;
+
     private array $pause = [
         'min' => 1,
-        'max' => 2
+        'max' => 2,
     ];
+
     private array $results = [];
 
     public function __construct($device, int $length_process_id = 20)
     {
         if ($device instanceof Device) {
             $this->device = $device;
-        } else if (is_numeric($device)) {
+        } elseif (is_numeric($device)) {
             $this->device = Device::find($device);
         } else {
             throw new \Exception('Device not found, please check your device id or instance of Device Model');
@@ -57,18 +68,21 @@ class MessageBuilder
     public function title(string $title): self
     {
         $this->title = $title;
+
         return $this;
     }
 
     public function setPriority(int $priority): self
     {
         $this->priority = $priority;
+
         return $this;
     }
 
     public function setPause(int $min, int $max): self
     {
         $this->pause = ['min' => $min, 'max' => $max];
+
         return $this;
     }
 
@@ -80,6 +94,7 @@ class MessageBuilder
     public function copywriting(string $copywriting): self
     {
         $this->copywriting = $copywriting;
+
         return $this;
     }
 
@@ -105,12 +120,14 @@ class MessageBuilder
             'created_at' => $this->now,
             'updated_at' => $this->now,
         ];
+
         return $this;
     }
 
     public function setAutoCreateTable(bool $auto_create_table): self
     {
         $this->auto_create_table = $auto_create_table;
+
         return $this;
     }
 
@@ -118,6 +135,7 @@ class MessageBuilder
     {
         $this->add($phone, $data);
         Messages::zu($this->user_id, $this->auto_create_table)->create($this->data);
+
         return $this;
     }
 

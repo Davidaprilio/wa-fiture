@@ -10,7 +10,7 @@ use DavidArl\WaFiture\Whatsapp;
  * Note: please insert $casts with :
  * 'enable' => 'boolean'
  * 'variable' => AsArrayObject::class,
- * 
+ *
  * -- Lak Ngoding Ojo Mumet-Mumet Lemesne Wae
  */
 trait NotificationHasWhatsapp

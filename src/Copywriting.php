@@ -3,8 +3,6 @@
 namespace DavidArl\WaFiture;
 
 use Carbon\Carbon;
-use DavidArl\WaFiture\Models\Device;
-use Illuminate\Support\Str;
 
 /**
  * Easy And Fast Saving Message to table
@@ -12,9 +10,13 @@ use Illuminate\Support\Str;
 class Copywriting
 {
     private string $prefix_variable;
+
     private bool $with_time_data = false;
+
     private string $copywriting;
+
     private array $data = [];
+
     private string $text_message = '';
 
     public function __construct($text, $prefix = null)
@@ -56,12 +58,14 @@ class Copywriting
         } else {
             $this->data = $time_data;
         }
+
         return $this;
     }
 
     public function data(array $data): self
     {
         $this->data = array_merge($this->data, $data);
+
         return $this;
     }
 
@@ -76,6 +80,7 @@ class Copywriting
             $this->text_message = str_replace($key, $value, $this->text_message);
         }
         $this->text_message = self::spintext($this->text_message);
+
         return $this;
     }
 
@@ -91,6 +96,7 @@ class Copywriting
         } else {
             $this->prefix_variable = $prefix;
         }
+
         return $this;
     }
 
@@ -127,6 +133,7 @@ class Copywriting
 
             $text .= "{$s}";
         }
+
         return $text;
     }
 

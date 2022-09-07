@@ -17,7 +17,8 @@ class Messages extends Model
     protected $guarded = ['id', 'created_at'];
 
     protected static $table_master = 'messages';
-    protected static $table_user = "zu*_messages";
+
+    protected static $table_user = 'zu*_messages';
 
     protected $casts = [
         'payload' => AsArrayObject::class,
@@ -32,10 +33,10 @@ class Messages extends Model
         } else {
             if ($user instanceof User) {
                 $user_id = $user->id;
-            } else if (is_numeric($user)) {
+            } elseif (is_numeric($user)) {
                 $user_id = $user;
             } else {
-                throw new \Exception("User id untuk table message Invalid");
+                throw new \Exception('User id untuk table message Invalid');
             }
 
             if ($auto_create_table) {
@@ -52,29 +53,32 @@ class Messages extends Model
     {
         if ($user_id === null) {
             if (Auth::guest()) {
-                throw new \Exception("User Belum Login, tidak bisa menggunakan method zu() jika user belum login");
+                throw new \Exception('User Belum Login, tidak bisa menggunakan method zu() jika user belum login');
             }
             $user_id = Auth::id();
         }
+
         return new self($user_id, $auto_create_table);
     }
 
     /**
      * Create User table if not found
-     * @param Int|String $id User_ID default curent user loged
-     * @return String Table Name
+     *
+     * @param  int|string  $id User_ID default curent user loged
+     * @return string Table Name
      */
     public static function init($id = false): string
     {
         $id = (int) ($id ?? Auth::id());
         if (gettype($id) !== 'integer') {
-            throw new \Exception("User ID must be integer");
+            throw new \Exception('User ID must be integer');
         }
         $tb = self::getTableUser($id);
         $cektable = Schema::hasTable($tb);
-        if (!$cektable) {
-            DB::statement("create table {$tb} like " . self::$table_master);
+        if (! $cektable) {
+            DB::statement("create table {$tb} like ".self::$table_master);
         }
+
         return $tb;
     }
 
