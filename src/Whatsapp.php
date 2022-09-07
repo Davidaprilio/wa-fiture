@@ -8,7 +8,7 @@ use DavidArl\WaFiture\Models\Device;
 
 class Whatsapp
 {
-    protected $copywriting = '';
+    protected Copywriting $_copywriting;
 
     protected $text_message = '';
 
@@ -18,8 +18,6 @@ class Whatsapp
 
     protected $data = [];
 
-    protected $prefix_variable = ':var';
-
     protected Device $device;
 
     protected $phones = [];
@@ -27,27 +25,13 @@ class Whatsapp
     public function __construct(Device $device)
     {
         $this->device = $device;
-
-        $dayTime = self::currentDayTime();
-        $now = Carbon::now();
-        $this->data = [
-            '_dayName' => strtolower($now->dayName),
-            '_monthName' => strtolower($now->monthName),
-            '_DayName' => $now->dayName,
-            '_MonthName' => $now->monthName,
-            '_hours' => $now->format('H:i'),
-            '_day' => $now->day,
-            '_month' => $now->month,
-            '_year' => $now->year,
-            '_time' => $dayTime,
-            '_Time' => ucfirst($dayTime),
-        ];
+        $this->_copywriting = Copywriting::text('')->withTimeData();
     }
 
     public function data(array $data)
     {
-        $this->data = array_merge($this->data, $data);
-
+        $this->data = $data;
+        $this->_copywriting->data($data);
         return $this;
     }
 
@@ -66,20 +50,12 @@ class Whatsapp
      */
     public function copywriting($text, string $prefix = null): Whatsapp
     {
-        $this->setPrefix($prefix);
-        $prefix = $this->getPrefix();
-        if (is_array($text)) {
-            $text = self::printText($text);
+        $this->_copywriting->text($text);
+        if ($prefix) {
+            $this->_copywriting->setPrefix($prefix);
         }
-        $this->copywriting = $text;
-
-        $this->text_message = $this->copywriting;
-        foreach ($this->data as $key => $value) {
-            $key = str_replace('var', $key, $prefix);
-            $this->text_message = str_replace($key, $value, $this->text_message);
-        }
-        $this->text_message = self::spintext($this->text_message);
-
+        $this->_copywriting->make();
+        $this->text_message = $this->_copywriting->get();
         return $this;
     }
 
@@ -88,7 +64,7 @@ class Whatsapp
      */
     public function getCopywriting()
     {
-        return $this->copywriting;
+        return $this->_copywriting->getCopywriting();
     }
 
     // /**
@@ -108,12 +84,10 @@ class Whatsapp
      */
     public function to($phone): Whatsapp
     {
-        if (! is_array($phone)) {
+        if (!is_array($phone)) {
             $phone = explode(',', $phone);
         }
-
         $this->phones = array_merge($this->phones, $phone);
-
         return $this;
     }
 
@@ -178,7 +152,6 @@ class Whatsapp
             'text' => $text,
             'id' => $id,
         ];
-
         return $this;
     }
 
@@ -190,83 +163,9 @@ class Whatsapp
      */
     public static function device($device)
     {
-        if (! ($device instanceof Device)) {
+        if (!($device instanceof Device)) {
             $device = Device::find($device);
         }
-
         return new self($device);
-    }
-
-    public static function spintext($text)
-    {
-        return preg_replace_callback('/{(.*?)}/', function ($match) {
-            $words = explode('|', $match[1]);
-
-            return $words[array_rand($words)];
-        }, $text);
-    }
-
-    public static function currentDayTime(): string
-    {
-        $textTime = [
-            'morning' => [
-                'id' => 'pagi',
-                'en' => 'morning',
-            ],
-            'afternoon' => [
-                'id' => 'siang',
-                'en' => 'afternoon',
-            ],
-            'evening' => [
-                'id' => 'sore',
-                'en' => 'evening',
-            ],
-            'night' => [
-                'id' => 'malam',
-                'en' => 'night',
-            ],
-        ];
-
-        $local = config('app.locale') ?? 'id';
-
-        $hour = Carbon::now()->hour;
-        if ($hour >= 3 && $hour <= 10) {
-            return $textTime['morning'][$local];
-        } elseif ($hour >= 11 && $hour <= 15) {
-            return $textTime['afternoon'][$local];
-        } elseif ($hour >= 15 && $hour <= 20) {
-            return $textTime['evening'][$local];
-        } else {
-            return $textTime['night'][$local];
-        }
-    }
-
-    public static function printText(array $string): string
-    {
-        $text = '';
-        $first = true;
-        foreach ($string as $s) {
-            ($first) ?
-                $first = false :
-                $text .= "\n";
-
-            $text .= "{$s}";
-        }
-
-        return $text;
-    }
-
-    private function setPrefix(?string $prefix): void
-    {
-        if ($prefix == null) {
-            $this->prefix_variable = config('wa-fiture.prefix-variable');
-        } else {
-            $this->prefix_variable = $prefix;
-        }
-    }
-
-    public function getPrefix(): string
-    {
-        return $this->prefix_variable;
     }
 }
