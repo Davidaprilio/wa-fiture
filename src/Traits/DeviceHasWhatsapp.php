@@ -43,7 +43,7 @@ trait DeviceHasWhatsapp
      */
     public function changeServer($server)
     {
-        if (! ($server instanceof WaServer)) { // if not instance of WaServer
+        if (!($server instanceof WaServer)) { // if not instance of WaServer
             $server = WaServer::where('id', $server)->orWhere('name', $server)->first();
             if ($server == null) {
                 Log::debug("Server Not Found, Can't change server to $server");
@@ -61,9 +61,9 @@ trait DeviceHasWhatsapp
      * @param  int|User  $user bisa berupa id_user atau model dari User
      * @param  string|int|WaServer  $server bisa berupa id, nama, server atau model dari WaServer
      */
-    public static function new(string $name, $user, $server = null): self
+    public static function new(string $name, $user, $server = null, $mode = 'md'): self
     {
-        if (! ($user instanceof User)) {
+        if (!($user instanceof User)) {
             $user = User::find($user);
             if ($user == null) {
                 throw new Exception("User Not Found, Can't create device for user $user", 500);
@@ -72,7 +72,7 @@ trait DeviceHasWhatsapp
             }
         }
 
-        if (! ($server instanceof WaServer)) { // if not instance of WaServer
+        if (!($server instanceof WaServer)) { // if not instance of WaServer
             $server = WaServer::where('id', $server)->orWhere('name', $server)->first();
             if ($server == null) {
                 throw new Exception("Server Not Found, Can't change server to $server", 500);
@@ -90,6 +90,7 @@ trait DeviceHasWhatsapp
 
         return self::create([
             'name' => $name,
+            'mode' => $mode,
             'user_id' => $user->id,
             'wa_server_id' => $server->id,
         ]);

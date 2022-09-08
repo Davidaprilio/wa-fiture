@@ -16,19 +16,51 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->comment('user yang punya message'); // Jika ada kesalahan insert bisa di crosscheck
-            $table->string('process_id')->comment('id proses blast (satu pengiriman massal)');
-            $table->foreignId('next_message_id')->nullable();
-            $table->string('text');
+            $table->foreignId('device_id')->constrained()->comment('device untuk kirim pesan');
+            $table->string('process_id')->comment('id proses blast (selalu sama dengan satu pengiriman pesan massal)');
+            $table->string('judul');
+            $table->enum('type_message', [
+                'text',
+                'button',
+                'button-link'
+            ])->default('text')->comment('ENUM: text|button|button-link');
+            $table->integer('retry')->default(0);
+            $table->integer('priority')->default(10);
+            $table->integer('pause')->default(1);
+            $table->enum('status', [
+                'creating', // Masih Pembuatan belum dikirim
+                'sending', // Dalam proses pengiriman
+                'sent', // sudah terkirim
+                'read', // telah dibaca
+                'not-wa', // Error: nomor tidak terdaftar wa
+                'offline', // device offline
+                'limit', // Kena limitasi
+                'fail'
+            ])->default('creating');
             $table->string('phone');
+            $table->string('text');
+
+            $table->string('button1')->nullable();
+            $table->text('action1')->nullable();
+            $table->string('button2')->nullable();
+            $table->text('action2')->nullable();
+            $table->string('button3')->nullable();
+            $table->text('action3')->nullable();
+
+            $table->string('file')->nullable();
+            $table->string('file_name')->nullable();
+
             $table->string('timestamp')->nullable();
             $table->string('report')->nullable();
             $table->string('message_id')->nullable()->comment('id message dari whatsapp');
             $table->dateTime('sent_at')->nullable();
-            $table->enum('status', ['sending', 'sent', 'read', 'not-wa', 'offline', 'fail'])->default('sending');
+
+            $table->string('selected_button_id')->nullable()->comment("Tampungan jawaban yang dipilih");
             $table->string('selected_button_text')->nullable()->comment("Tampungan jawaban yang dipilih");
-            $table->boolean('once_selection')->default(false)->nullable("Jika true maka jawaban tidak bisa diubah pilih 1x saja");
-            $table->json('payload');
+            $table->boolean('one_time_replay')->default(false)->nullable("Jika true maka jawaban tidak bisa diubah pilih 1x saja");
+            $table->json('payload')->default('[]')->comment('Tampungan data tambahan');
             $table->timestamps();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 

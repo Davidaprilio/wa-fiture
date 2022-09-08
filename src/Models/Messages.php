@@ -2,6 +2,8 @@
 
 namespace DavidArl\WaFiture\Models;
 
+use Carbon\Carbon;
+use DavidArl\WaFiture\MessageBuilder;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -75,8 +77,8 @@ class Messages extends Model
         }
         $tb = self::getTableUser($id);
         $cektable = Schema::hasTable($tb);
-        if (! $cektable) {
-            DB::statement("create table {$tb} like ".self::$table_master);
+        if (!$cektable) {
+            DB::statement("create table {$tb} like " . self::$table_master);
         }
 
         return $tb;
@@ -85,6 +87,11 @@ class Messages extends Model
     private static function getTableUser(int $user_id): string
     {
         return str_replace('*', $user_id, self::$table_user);
+    }
+
+    public function scopeToday($query)
+    {
+        return $query->whereDate('created_at', Carbon::today());
     }
 
     public function scopePreview($query)
