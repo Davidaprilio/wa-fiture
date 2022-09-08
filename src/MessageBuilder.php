@@ -4,7 +4,7 @@ namespace DavidArl\WaFiture;
 
 use Carbon\Carbon;
 use DavidArl\WaFiture\Models\Device;
-use DavidArl\WaFiture\Models\Messages;
+use DavidArl\WaFiture\Models\Message;
 use Illuminate\Support\Str;
 
 /**
@@ -91,7 +91,7 @@ class MessageBuilder
     public function limitQuota(int $limit, bool $stop_after_limit = true, array $type_state = ['sent', 'limit', 'not-wa', 'read', 'creating', 'sending']): self
     {
         $this->limit_quota = $limit;
-        $this->message_today = Messages::zu($this->user_id)
+        $this->message_today = Message::zu($this->user_id)
             ->today()
             ->whereIn('status', $type_state)
             ->count() ?? 0;
@@ -261,7 +261,7 @@ class MessageBuilder
     {
         $this->add($phone, $data);
         if (count($this->data) > 0) {
-            Messages::zu($this->user_id, $this->auto_create_table)->create($this->data);
+            Message::zu($this->user_id, $this->auto_create_table)->create($this->data);
         }
         return $this;
     }
@@ -273,6 +273,6 @@ class MessageBuilder
 
     public function save()
     {
-        return Messages::zu($this->user_id, $this->auto_create_table)->insert($this->results);
+        return Message::zu($this->user_id, $this->auto_create_table)->insert($this->results);
     }
 }
