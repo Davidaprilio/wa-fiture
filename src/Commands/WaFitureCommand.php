@@ -24,7 +24,8 @@ class WaFitureCommand extends Command
 
         $confirm = $this->confirm('Aksi ini akan mempublish file config dan migration, dan mencoba menjalankan migrasi DB lanjutkan', true);
         if ($confirm === false) {
-            $this->info("OK diabatalkan!");
+            $this->info('OK diabatalkan!');
+
             return 0;
         }
 

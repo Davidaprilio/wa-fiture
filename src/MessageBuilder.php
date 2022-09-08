@@ -22,7 +22,7 @@ class MessageBuilder
 
     private $limit_quota = INF;
 
-    private bool $stop_after_limit  = true;
+    private bool $stop_after_limit = true;
 
     private ?int $message_today;
 
@@ -42,7 +42,7 @@ class MessageBuilder
 
     private array $file = [
         'file' => null,
-        'file_name' => null
+        'file_name' => null,
     ];
 
     private $now;
@@ -82,10 +82,10 @@ class MessageBuilder
 
     /**
      * Tetapkan Limitasi Pesan Harian
-     * @param int $limit Jumlah Limit Pesan
-     * @param bool $stop_after_limit Jika true, maka akan berhenti setelah limit tercapai pesan selanjutnya tidak akan dibuat
-     * @param array $type_state kondisi status yang akan dihitung sebagai pesan harian
-     * 
+     *
+     * @param  int  $limit Jumlah Limit Pesan
+     * @param  bool  $stop_after_limit Jika true, maka akan berhenti setelah limit tercapai pesan selanjutnya tidak akan dibuat
+     * @param  array  $type_state kondisi status yang akan dihitung sebagai pesan harian
      * @return self
      */
     public function limitQuota(int $limit, bool $stop_after_limit = true, array $type_state = ['sent', 'limit', 'not-wa', 'read', 'creating', 'sending']): self
@@ -103,7 +103,8 @@ class MessageBuilder
 
     /**
      * Tetapkan judul pesan
-     * @param string $title Judul Pesan
+     *
+     * @param  string  $title Judul Pesan
      * @return self
      */
     public function title(string $title): self
@@ -115,7 +116,8 @@ class MessageBuilder
 
     /**
      * Tetapkan Prioritas pengiriman pesan
-     * @param int $priority Semakin kecil semakin diprioritaskan
+     *
+     * @param  int  $priority Semakin kecil semakin diprioritaskan
      * @return self
      */
     public function setPriority(int $priority): self
@@ -127,7 +129,8 @@ class MessageBuilder
 
     /**
      * Tetapkan Tipe Pesan
-     * @param string $type Tipe Pesan
+     *
+     * @param  string  $type Tipe Pesan
      * @return self
      */
     public function setPause(int $min, int $max): self
@@ -144,7 +147,8 @@ class MessageBuilder
 
     /**
      * Copywriting pesan yang akan dikirim Bisa menggunakan format variable
-     * @param string $copywriting Text Copywriting
+     *
+     * @param  string  $copywriting Text Copywriting
      */
     public function copywriting(string $copywriting): self
     {
@@ -155,15 +159,16 @@ class MessageBuilder
 
     /**
      * Tambah Pesan Dengan Button otomatis akan mengubah tipe pesan menjadi button
-     * @param string $text Text pada Button
-     * @param string $replay Text Pesan yang akan dikirim jika button di klik
+     *
+     * @param  string  $text Text pada Button
+     * @param  string  $replay Text Pesan yang akan dikirim jika button di klik
      */
     public function button(string $text, string $replay)
     {
         $this->type = 'button';
         $count = count($this->button) / 2 + 1;
         if ($count > 3) {
-            throw new \Exception("Error: maaf untuk sekarang button hanya bisa digunakan 3 kali");
+            throw new \Exception('Error: maaf untuk sekarang button hanya bisa digunakan 3 kali');
         }
         $this->button["button{$count}"] = $text;
         $this->button["action{$count}"] = $replay;
@@ -173,8 +178,9 @@ class MessageBuilder
 
     /**
      * Sematkan File pada Pesan dengan mengisi url file (hanya Image jpg/png/gif)
-     * @param string $url Url File
-     * @param string $file_name Nama File jika tidak diisi maka akan menggunakan nama file asli dari url
+     *
+     * @param  string  $url Url File
+     * @param  string  $file_name Nama File jika tidak diisi maka akan menggunakan nama file asli dari url
      */
     public function file(string $url_file, string $file_name = null): self
     {
@@ -196,8 +202,9 @@ class MessageBuilder
 
     /**
      * Membuat data pesan dari config yang diberikan
-     * @param string $phone Nomor Telepon yang akan dikirim pesan
-     * @param array $data Data yang akan digunakan untuk membuat Copywriting pesan
+     *
+     * @param  string  $phone Nomor Telepon yang akan dikirim pesan
+     * @param  array  $data Data yang akan digunakan untuk membuat Copywriting pesan
      */
     public function add(string $phone, array $data)
     {
@@ -205,6 +212,7 @@ class MessageBuilder
         if ($state === 'limit' && $this->stop_after_limit) {
             // Reject jika sudah melebihi limit
             $this->data = [];
+
             return $this;
         }
 
@@ -227,7 +235,7 @@ class MessageBuilder
             'pause' => $this->randPause(),
             'payload' => '[]',
             ...$this->file,
-            ...$buttons
+            ...$buttons,
         ];
         $this->results[] = [
             ...$this->data,
@@ -247,6 +255,7 @@ class MessageBuilder
                 $this->remaining_limit--;
             }
         }
+
         return 'creating';
     }
 
@@ -263,6 +272,7 @@ class MessageBuilder
         if (count($this->data) > 0) {
             Message::zu($this->user_id, $this->auto_create_table)->create($this->data);
         }
+
         return $this;
     }
 

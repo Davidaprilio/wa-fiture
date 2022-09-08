@@ -3,7 +3,6 @@
 namespace DavidArl\WaFiture\Models;
 
 use Carbon\Carbon;
-use DavidArl\WaFiture\MessageBuilder;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -77,8 +76,8 @@ class Message extends Model
         }
         $tb = self::getTableUser($id);
         $cektable = Schema::hasTable($tb);
-        if (!$cektable) {
-            DB::statement("create table {$tb} like " . self::$table_master);
+        if (! $cektable) {
+            DB::statement("create table {$tb} like ".self::$table_master);
         }
 
         return $tb;
