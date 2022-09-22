@@ -2,8 +2,11 @@
 
 namespace DavidArl\WaFiture;
 
+use DavidArl\WaFiture\Facades\WaFiture;
 use DavidArl\WaFiture\Facades\WhatsappService;
+use DavidArl\WaFiture\Models\Contact;
 use DavidArl\WaFiture\Models\Device;
+use Illuminate\Database\Eloquent\Collection;
 
 class Whatsapp
 {
@@ -24,7 +27,7 @@ class Whatsapp
     public function __construct(Device $device)
     {
         $this->device = $device;
-        $this->_copywriting = Copywriting::text('')->withTimeData();
+        $this->_copywriting = Copywriting::init()->withTimeData();
     }
 
     public function data(array $data)
@@ -50,10 +53,10 @@ class Whatsapp
      */
     public function copywriting($text, string $prefix = null): Whatsapp
     {
-        $this->_copywriting->text($text);
         if ($prefix) {
-            $this->_copywriting->setPrefix($prefix);
+            $this->_copywriting->setVarPrefix($prefix);
         }
+        $this->_copywriting->text($text);
         $this->_copywriting->make();
         $this->text_message = $this->_copywriting->get();
 
@@ -68,16 +71,6 @@ class Whatsapp
         return $this->_copywriting->getCopywriting();
     }
 
-    // /**
-    //  * Sending to given contact Model
-    //  *
-    //  * @param string|array $contact
-    //  */
-    // public function contact(Contact $contact)
-    // {
-    //     return $this->text_message;
-    // }
-
     /**
      * Sending to given phone or jid
      *
@@ -85,7 +78,7 @@ class Whatsapp
      */
     public function to($phone): Whatsapp
     {
-        if (! is_array($phone)) {
+        if (!is_array($phone)) {
             $phone = explode(',', $phone);
         }
         $this->phones = array_merge($this->phones, $phone);
@@ -166,7 +159,7 @@ class Whatsapp
      */
     public static function device($device)
     {
-        if (! ($device instanceof Device)) {
+        if (!($device instanceof Device)) {
             $device = Device::find($device);
         }
 

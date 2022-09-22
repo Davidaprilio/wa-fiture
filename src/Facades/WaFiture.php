@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Facade;
  *
  * @property Device $device
  *
+ * @method static ?bool instanceofCollection($class, $collectionOrClass) Check instanceof Class or Collection of Class, 
+ * return null if collection is empty
  * @method static \DavidArl\WaFiture\WaFiture device(Device $device)
  * @method public object getQRandStatus()
  */

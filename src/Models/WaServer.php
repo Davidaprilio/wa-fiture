@@ -28,6 +28,9 @@ class WaServer extends Model
         return $this->where('status', 'disable');
     }
 
+    /**
+     * Filter server have free slot
+     */
     public function scopeAvailable()
     {
         return $this->withCount('devices')->having('devices_count', '>', 'max_devices')->enable();

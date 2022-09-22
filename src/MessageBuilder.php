@@ -194,7 +194,7 @@ class MessageBuilder
     {
         $button_ready = [];
         foreach ($button as $column => $value) {
-            $button_ready[$column] = Copywriting::text($value)->data($data)->make()->get();
+            $button_ready[$column] = Copywriting::init()->text($value)->data($data)->make()->get();
         }
 
         return $button_ready;
@@ -216,7 +216,7 @@ class MessageBuilder
             return $this;
         }
 
-        $txt = Copywriting::text($this->copywriting)->data($data)->make()->get();
+        $txt = Copywriting::init()->text($this->copywriting)->data($data)->make()->get();
         $phone = preg_replace('/[^0-9]/', '', $phone);
         $buttons = [];
         if ($this->type === 'button') {

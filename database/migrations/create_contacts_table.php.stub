@@ -27,7 +27,9 @@ return new class extends Migration
             $table->string('kota')->nullable();
             $table->string('kabupaten')->nullable();
             $table->string('kecamatan')->nullable();
+            $table->string('profesi')->nullable();
             $table->string('kategori')->nullable();
+            $table->string('tag')->nullable();
             $table->timestamps();
         });
     }

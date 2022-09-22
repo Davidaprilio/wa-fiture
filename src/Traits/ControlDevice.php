@@ -15,7 +15,7 @@ trait ControlDevice
 
     protected $mode = ['md', 'std'];
 
-    protected $status = [
+    protected $statusAuth = [
         'auth' => 'AUTHENTICATED',
         'not_auth' => 'NOT AUTHENTICATED',
     ];
@@ -25,7 +25,7 @@ trait ControlDevice
      */
     public function device($device)
     {
-        if (! ($device instanceof Device)) {
+        if (!($device instanceof Device)) {
             $device = Device::find($device);
         }
         $this->device = $device;
@@ -60,7 +60,7 @@ trait ControlDevice
         $this->validateDevice();
         $result = WhatsappService::device($this->device)->logout();
         $this->device->update([
-            'status' => $this->status['not_auth'],
+            'status' => $this->statusAuth['not_auth'],
             'phone' => null,
             'photo' => null,
         ]);
@@ -94,7 +94,7 @@ trait ControlDevice
                 $phone = explode(':', $result->data->id)[0] ?? null;
                 $device->update([
                     'photo' => $result->pic ?? null,
-                    'status' => $this->status['auth'],
+                    'status' => $this->statusAuth['auth'],
                     'phone' => $phone,
                 ]);
             }
@@ -103,7 +103,7 @@ trait ControlDevice
         } else {
             $device->update([
                 'mode' => $result->mode ?? $device->mode,
-                'status' => $this->status['not_auth'],
+                'status' => $this->statusAuth['not_auth'],
                 'photo' => null,
                 'phone' => null,
             ]);
@@ -119,8 +119,8 @@ trait ControlDevice
 
     protected function hasMode($mode): string
     {
-        if (! in_array($mode, $this->mode)) {
-            throw new Exception("Device mode '{$mode}' not found enums: ".implode(', ', $this->mode));
+        if (!in_array($mode, $this->mode)) {
+            throw new Exception("Device mode '{$mode}' not found enums: " . implode(', ', $this->mode));
         }
 
         return $mode;
@@ -131,7 +131,7 @@ trait ControlDevice
         if ($this->device == null) {
             throw new Exception('Device not set');
         }
-        if (! ($this->device instanceof Device)) {
+        if (!($this->device instanceof Device)) {
             throw new Exception('Device not instance of Device Model');
         }
     }

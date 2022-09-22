@@ -19,18 +19,23 @@ class Copywriting
 
     private string $text_message = '';
 
-    public function __construct($text, $prefix = null)
+    public function __construct(?string $prefix_variable = null)
     {
-        $this->setPrefix($prefix);
+        $this->setVarPrefix($prefix_variable);
+    }
+
+    public static function init(?string $prefix_variable = null)
+    {
+        return new self($prefix_variable);
+    }
+
+    public function text($text): self
+    {
         if (is_array($text)) {
             $text = self::printText($text);
         }
         $this->copywriting = $text;
-    }
-
-    public static function text($text): self
-    {
-        return new self($text);
+        return $this;
     }
 
     public function withTimeData(): self
@@ -76,7 +81,7 @@ class Copywriting
     {
         $this->text_message = $this->copywriting;
         foreach ($this->data as $key => $value) {
-            $key = str_replace('var', $key, $this->getPrefix());
+            $key = str_replace('var', $key, $this->getVarPrefix());
             $this->text_message = str_replace($key, $value, $this->text_message);
         }
         $this->text_message = self::spintext($this->text_message);
@@ -89,7 +94,7 @@ class Copywriting
         return $this->text_message;
     }
 
-    public function setPrefix(?string $prefix): self
+    public function setVarPrefix(?string $prefix): self
     {
         if ($prefix === null) {
             $this->prefix_variable = config('wa-fiture.prefix-variable') ?? ':var';
@@ -100,7 +105,7 @@ class Copywriting
         return $this;
     }
 
-    public function getPrefix(): string
+    public function getVarPrefix(): string
     {
         return $this->prefix_variable;
     }

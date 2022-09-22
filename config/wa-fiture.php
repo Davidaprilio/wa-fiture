@@ -16,4 +16,12 @@ return [
      */
     'prefix-variable' => ':var',
 
+    'models' => [
+        'server' => DavidArl\WaFiture\Models\WaServer::class,
+        'device' => DavidArl\WaFiture\Models\Device::class,
+        'contact' => DavidArl\WaFiture\Models\Contact::class,
+        'message' => DavidArl\WaFiture\Models\Message::class,
+        'notification' => DavidArl\WaFiture\Models\Notification::class,
+    ],
+
 ];
