@@ -1,6 +1,6 @@
 <?php
 
-namespace DavidArl\WaFiture\Commands;
+namespace Quods\Whatsapp\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;

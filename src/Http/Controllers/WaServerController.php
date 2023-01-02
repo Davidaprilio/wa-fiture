@@ -1,8 +1,8 @@
 <?php
 
-namespace DavidArl\WaFiture\Http\Controllers;
+namespace Quods\Whatsapp\Http\Controllers;
 
-use DavidArl\WaFiture\Models\WaServer;
+use Quods\Whatsapp\Models\WaServer;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 

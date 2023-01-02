@@ -1,8 +1,8 @@
 <?php
 
-namespace DavidArl\WaFiture\Models;
+namespace Quods\Whatsapp\Models;
 
-use DavidArl\WaFiture\Traits\DeviceHasWhatsapp;
+use Quods\Whatsapp\Traits\DeviceHasWhatsapp;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

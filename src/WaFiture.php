@@ -1,8 +1,8 @@
 <?php
 
-namespace DavidArl\WaFiture;
+namespace Quods\Whatsapp;
 
-use DavidArl\WaFiture\Traits\ControlDevice;
+use Quods\Whatsapp\Traits\ControlDevice;
 use Illuminate\Database\Eloquent\Collection;
 
 class WaFiture

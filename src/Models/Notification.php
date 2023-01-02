@@ -1,8 +1,8 @@
 <?php
 
-namespace DavidArl\WaFiture\Models;
+namespace Quods\Whatsapp\Models;
 
-use DavidArl\WaFiture\Traits\NotificationHasWhatsapp;
+use Quods\Whatsapp\Traits\NotificationHasWhatsapp;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

@@ -1,9 +1,9 @@
 <?php
 
-namespace DavidArl\WaFiture\Traits;
+namespace Quods\Whatsapp\Traits;
 
-use DavidArl\WaFiture\Facades\WhatsappService;
-use DavidArl\WaFiture\Models\Device;
+use Quods\Whatsapp\Facades\WhatsappService;
+use Quods\Whatsapp\Models\Device;
 use Exception;
 
 /**

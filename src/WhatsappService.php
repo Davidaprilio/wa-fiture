@@ -1,8 +1,8 @@
 <?php
 
-namespace DavidArl\WaFiture;
+namespace Quods\Whatsapp;
 
-use DavidArl\WaFiture\Models\Device;
+use Quods\Whatsapp\Models\Device;
 
 class WhatsappService
 {

@@ -5,7 +5,7 @@
 ])
 
 @php
-if ($update !== null && !($update instanceof \DavidArl\WaFiture\Models\WaServer)) {
+if ($update !== null && !($update instanceof \Quods\Whatsapp\Models\WaServer)) {
     throw new \Exception(':update props must be instance of WaServer Model');
 }
 @endphp

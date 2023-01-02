@@ -42,7 +42,7 @@ php artisan vendor:publish --tag="wa-fiture-views"
 ## Usage
 
 ```php
-$waFiture = new DavidArl\WaFiture();
+$waFiture = new Quods\Whatsapp();
 echo $waFiture->echoPhrase('Hello, DavidArl!');
 ```
 

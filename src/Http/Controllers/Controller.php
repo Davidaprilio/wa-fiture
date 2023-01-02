@@ -1,6 +1,6 @@
 <?php
 
-namespace DavidArl\WaFiture\Http\Controllers;
+namespace Quods\Whatsapp\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;

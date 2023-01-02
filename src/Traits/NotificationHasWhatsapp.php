@@ -1,9 +1,9 @@
 <?php
 
-namespace DavidArl\WaFiture\Traits;
+namespace Quods\Whatsapp\Traits;
 
-use DavidArl\WaFiture\Models\Device;
-use DavidArl\WaFiture\Whatsapp;
+use Quods\Whatsapp\Models\Device;
+use Quods\Whatsapp\Whatsapp;
 
 /**
  * Use this trait in your model Notification to scoping and Easy sending Notification

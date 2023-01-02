@@ -1,6 +1,6 @@
 <?php
 
-namespace DavidArl\WaFiture\Traits;
+namespace Quods\Whatsapp\Traits;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;

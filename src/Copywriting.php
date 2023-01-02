@@ -1,6 +1,6 @@
 <?php
 
-namespace DavidArl\WaFiture;
+namespace Quods\Whatsapp;
 
 use Carbon\Carbon;
 

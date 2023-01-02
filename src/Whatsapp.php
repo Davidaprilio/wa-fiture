@@ -1,11 +1,11 @@
 <?php
 
-namespace DavidArl\WaFiture;
+namespace Quods\Whatsapp;
 
-use DavidArl\WaFiture\Facades\WaFiture;
-use DavidArl\WaFiture\Facades\WhatsappService;
-use DavidArl\WaFiture\Models\Contact;
-use DavidArl\WaFiture\Models\Device;
+use Quods\Whatsapp\Facades\WaFiture;
+use Quods\Whatsapp\Facades\WhatsappService;
+use Quods\Whatsapp\Models\Contact;
+use Quods\Whatsapp\Models\Device;
 use Illuminate\Database\Eloquent\Collection;
 
 class Whatsapp
@@ -134,7 +134,7 @@ class Whatsapp
         $data = [
             'device_id' => $this->device->id,
             'message' => $this->text_message,
-            'contact' => $this->contact,
+            // 'contact' => $this->contact,
         ];
 
         return $data;

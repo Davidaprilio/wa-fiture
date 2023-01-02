@@ -1,8 +1,8 @@
 <?php
 
-namespace DavidArl\WaFiture\Tests;
+namespace Quods\Whatsapp\Tests;
 
-use DavidArl\WaFiture\WaFitureServiceProvider;
+use Quods\Whatsapp\WaFitureServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 

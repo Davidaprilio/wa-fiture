@@ -1,14 +1,13 @@
 <?php
 
-namespace DavidArl\WaFiture\Database\Factories;
+namespace Quods\Whatsapp\Database\Factories;
 
-use DavidArl\WaFiture\Models\Contact;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 class ContactFactory extends Factory
 {
-    protected $model = Contact::class;
+    protected $model = Con::class;
 
     public function definition()
     {

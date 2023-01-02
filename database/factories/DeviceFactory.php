@@ -1,6 +1,6 @@
 <?php
 
-namespace DavidArl\WaFiture\Database\Factories;
+namespace Quods\Whatsapp\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;

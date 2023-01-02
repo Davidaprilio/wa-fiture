@@ -1,10 +1,10 @@
 <?php
 
-namespace DavidArl\WaFiture;
+namespace Quods\Whatsapp;
 
 use Carbon\Carbon;
-use DavidArl\WaFiture\Models\Device;
-use DavidArl\WaFiture\Models\Message;
+use Quods\Whatsapp\Models\Device;
+use Quods\Whatsapp\Models\Message;
 use Illuminate\Support\Str;
 
 /**

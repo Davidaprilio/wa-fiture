@@ -1,10 +1,10 @@
 {
-    "name": "davidarl/wa-fiture",
-    "description": "PackStarter untuk Fitur WA MSD",
+    "name": "quods/whatsapp",
+    "description": "Whatsapp Client And CRM Model",
     "keywords": [
         "DavidArl",
-        "laravel",
-        "wa-fiture"
+        "Laravel",
+        "Whatsapp"
     ],
     "homepage": "https://github.com/davidarl/wa-fiture",
     "license": "MIT",
@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "DavidArl\\WaFiture\\": "src",
-            "DavidArl\\WaFiture\\Database\\Factories\\": "database/factories"
+            "Quods\\Whatsapp\\": "src",
+            "Quods\\Whatsapp\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "DavidArl\\WaFiture\\Tests\\": "tests"
+            "Quods\\Whatsapp\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -60,10 +60,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "DavidArl\\WaFiture\\WaFitureServiceProvider"
+                "Quods\\Whatsapp\\WaFitureServiceProvider"
             ],
             "aliases": {
-                "WaFiture": "DavidArl\\WaFiture\\Facades\\WaFiture"
+                "Whatsapp": "Quods\\Whatsapp\\Facades\\Whatsapp"
             }
         }
     },

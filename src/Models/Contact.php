@@ -1,9 +1,9 @@
 <?php
 
-namespace DavidArl\WaFiture\Models;
+namespace Quods\Whatsapp\Models;
 
-use DavidArl\WaFiture\Traits\OwnUserTable;
-use DavidArl\WaFiture\Whatsapp;
+use Quods\Whatsapp\Traits\OwnUserTable;
+use Quods\Whatsapp\Whatsapp;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

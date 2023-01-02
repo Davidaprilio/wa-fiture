@@ -1,10 +1,10 @@
 <?php
 
-namespace DavidArl\WaFiture\Traits;
+namespace Quods\Whatsapp\Traits;
 
 use App\Models\User;
-use DavidArl\WaFiture\Models\WaServer;
-use DavidArl\WaFiture\Whatsapp;
+use Quods\Whatsapp\Models\WaServer;
+use Quods\Whatsapp\Whatsapp;
 use Exception;
 use Illuminate\Support\Facades\Log;
 

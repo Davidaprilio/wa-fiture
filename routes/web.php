@@ -1,6 +1,6 @@
 <?php
 
-use DavidArl\WaFiture\Http\Controllers\WaServerController;
+use Quods\Whatsapp\Http\Controllers\WaServerController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('whatsapp')->name('wa')->middleware(['web'])->group(function () {

@@ -1,18 +1,18 @@
 <?php
 
-namespace DavidArl\WaFiture\Facades;
+namespace Quods\Whatsapp\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \DavidArl\WaFiture\WhatsappService
+ * @see \Quods\Whatsapp\WhatsappService
  *
- * @method static \DavidArl\WaFiture\WhatsappService device(Device $device)
+ * @method static \Quods\Whatsapp\WhatsappService device(Device $device)
  */
 class WhatsappService extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \DavidArl\WaFiture\WhatsappService::class;
+        return \Quods\Whatsapp\WhatsappService::class;
     }
 }

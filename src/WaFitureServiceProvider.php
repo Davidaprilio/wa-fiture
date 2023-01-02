@@ -1,8 +1,8 @@
 <?php
 
-namespace DavidArl\WaFiture;
+namespace Quods\Whatsapp;
 
-use DavidArl\WaFiture\Commands\WaFitureCommand;
+use Quods\Whatsapp\Commands\WaFitureCommand;
 use Illuminate\Support\Facades\Blade;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
