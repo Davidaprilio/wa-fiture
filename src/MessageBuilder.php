@@ -142,7 +142,7 @@ class MessageBuilder
 
     private function randPause(): int
     {
-        return rand($this->pause['min'], $this->pause['max']);
+        return random_int($this->pause['min'], $this->pause['max']);
     }
 
     /**
