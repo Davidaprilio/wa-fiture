@@ -41,9 +41,42 @@ php artisan vendor:publish --tag="wa-fiture-views"
 
 ## Usage
 
+Sebelum menggunakan code dibawah ini anda harus mengkonfigurasi data server dulu di database
+
 ```php
-$waFiture = new Quods\Whatsapp();
-echo $waFiture->echoPhrase('Hello, DavidArl!');
+$phone = "085231028718";
+
+$w = Whatsapp::device(1)->data([
+    'nama' => 'David',
+    'nomor' => $phone,
+])->copywriting('Halo [nama]');
+
+/*------ Attach File Image, Video, Document ------*/
+// $w->file("https://seminar.co.id/gold.jpeg");
+// $w->file("http://staffnew.uny.ac.id/upload/131474242/penelitian/LAPORAN+PENELITIAN.pdf");
+// $w->file("https://www.w3schools.com/html/mov_bbb.mp4");
+
+/*------ Insert Button Max 3 ------*/
+$w->button('Button 1');
+$w->button('Button 2');
+$w->button('Button 3');
+
+/*------ Insert Select List ------*/
+// $w->button_list('Promo Special', 'Lihat Menu', 'tokalink.id');
+// $w->list('Makanan', function($list) {
+//     $list->add('Nasi Goreng', 'Rp. 10.000');
+//     $list->add('Nasi Rawon', 'Rp. 15.000');
+//     $list->add('Nasi Ayam', 'Rp. 20.000');
+//     $list->add('Nasi Soto', 'Rp. 25.000');
+// });
+// $w->list('Minuman', function($list) {
+//     $list->add('Es Teh', 'Rp. 3.000');
+//     $list->add('Dawet', 'Rp. 7.000');
+//     $list->add('Cincau', 'Rp. 7.000');
+//     $list->add('Kopi', 'Rp. 5.000');
+// });
+
+$r = $w->send($phone);
 ```
 
 ## Testing
