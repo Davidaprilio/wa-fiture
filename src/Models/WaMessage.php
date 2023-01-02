@@ -4,15 +4,12 @@ namespace Quods\Whatsapp\Models;
 
 use Carbon\Carbon;
 use Quods\Whatsapp\Traits\OwnUserTable;
-use Illuminate\Database\Eloquent\Casts\AsArrayObject;
+use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 
-class Message extends Model
+class WaMessage extends Model
 {
     use HasFactory, SoftDeletes, OwnUserTable;
 
@@ -21,7 +18,7 @@ class Message extends Model
     protected static $table_master = 'messages';
 
     protected $casts = [
-        'payload' => AsArrayObject::class,
+        'payload' => AsCollection::class,
     ];
 
     public function scopeToday($query)

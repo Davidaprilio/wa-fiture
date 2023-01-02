@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('wa_messages', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->comment('user yang punya message'); // Jika ada kesalahan insert bisa di crosscheck
-            $table->foreignId('device_id')->constrained()->comment('device untuk kirim pesan');
+            $table->foreignId('wa_device_id')->constrained()->comment('device untuk kirim pesan');
             $table->string('process_id')->comment('id proses blast (selalu sama dengan satu pengiriman pesan massal)');
             $table->string('judul');
             $table->enum('type_message', [

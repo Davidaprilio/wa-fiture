@@ -3,7 +3,7 @@
 namespace Quods\Whatsapp;
 
 use Quods\Whatsapp\Facades\WhatsappService;
-use Quods\Whatsapp\Models\Device;
+use Quods\Whatsapp\Models\WaDevice;
 use Closure;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
@@ -29,13 +29,13 @@ class Whatsapp
 
     protected $file_type = null;
 
-    protected Device $device;
+    protected WaDevice $device;
 
     protected $phones = [];
 
-    public function __construct(Device $device)
+    public function __construct(WaDevice $waDevice)
     {
-        $this->device = $device;
+        $this->device = $waDevice;
         $this->_copywriting = Copywriting::init()->withTimeData();
     }
 
@@ -280,16 +280,16 @@ class Whatsapp
     /**
      * Set sender device
      *
-     * @param  Device|int  $device Device model or device id for sending message
+     * @param  WaDevice|int  $device WaDevice model or device id for sending message
      * @return Whatsapp
      */
     public static function device($device)
     {
-        if (!($device instanceof Device)) {
+        if (!($device instanceof WaDevice)) {
             $device_id = $device;
-            $device = Device::find($device_id);
+            $device = WaDevice::find($device_id);
             if (is_null($device)) {
-                throw new NotFoundResourceException("Device with id ({$device_id}) Not Found");
+                throw new NotFoundResourceException("WaDevice with id ({$device_id}) Not Found");
             }
         }
 

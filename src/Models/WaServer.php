@@ -15,7 +15,7 @@ class WaServer extends Model
 
     public function devices()
     {
-        return $this->hasMany(Device::class);
+        return $this->hasMany(WaDevice::class);
     }
 
     public function scopeEnable()

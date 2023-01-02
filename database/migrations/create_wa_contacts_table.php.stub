@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('contacts', function (Blueprint $table) {
+        Schema::create('wa_contacts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->comment('user yang punya contact'); // Jika ada kesalahan insert bisa di crosscheck
             $table->string('sapaan')->nullable();

@@ -3,7 +3,7 @@
 namespace Quods\Whatsapp\Traits;
 
 use Quods\Whatsapp\Facades\WhatsappService;
-use Quods\Whatsapp\Models\Device;
+use Quods\Whatsapp\Models\WaDevice;
 use Exception;
 
 /**
@@ -11,7 +11,7 @@ use Exception;
  */
 trait ControlDevice
 {
-    protected ?Device $device = null;
+    protected ?WaDevice $device = null;
 
     protected $mode = ['md', 'std'];
 
@@ -21,12 +21,12 @@ trait ControlDevice
     ];
 
     /**
-     * @param  Device|int  $device device model or id
+     * @param WaDevice|int  $device device model or id
      */
     public function device($device)
     {
-        if (!($device instanceof Device)) {
-            $device = Device::find($device);
+        if (!($device instanceof WaDevice)) {
+            $device = WaDevice::find($device);
         }
         $this->device = $device;
 
@@ -120,7 +120,7 @@ trait ControlDevice
     protected function hasMode($mode): string
     {
         if (!in_array($mode, $this->mode)) {
-            throw new Exception("Device mode '{$mode}' not found enums: " . implode(', ', $this->mode));
+            throw new Exception("WaDevice mode '{$mode}' not found enums: " . implode(', ', $this->mode));
         }
 
         return $mode;
@@ -129,10 +129,10 @@ trait ControlDevice
     protected function validateDevice(): void
     {
         if ($this->device == null) {
-            throw new Exception('Device not set');
+            throw new Exception('WaDevice not set');
         }
-        if (!($this->device instanceof Device)) {
-            throw new Exception('Device not instance of Device Model');
+        if (!($this->device instanceof WaDevice)) {
+            throw new Exception('WaDevice not instance of WaDevice Model');
         }
     }
 }

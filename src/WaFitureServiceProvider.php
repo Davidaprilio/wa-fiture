@@ -20,10 +20,10 @@ class WaFitureServiceProvider extends PackageServiceProvider
         // Migrations
         $package
             ->hasMigration('create_wa_servers_table')
-            ->hasMigration('create_devices_table')
-            ->hasMigration('create_contacts_table')
-            ->hasMigration('create_notifications_table')
-            ->hasMigration('create_messages_table');
+            ->hasMigration('create_wa_devices_table')
+            ->hasMigration('create_wa_contacts_table')
+            ->hasMigration('create_wa_notifications_table')
+            ->hasMigration('create_wa_messages_table');
 
         // Commands
         $package

@@ -2,7 +2,7 @@
 
 namespace Quods\Whatsapp\Traits;
 
-use Quods\Whatsapp\Models\Device;
+use Quods\Whatsapp\Models\WaDevice;
 use Quods\Whatsapp\Whatsapp;
 
 /**
@@ -17,7 +17,7 @@ trait NotificationHasWhatsapp
 {
     public function device()
     {
-        return $this->belongsTo(Device::class);
+        return $this->belongsTo(WaDevice::class);
     }
 
     public function scopeEnabled($query)

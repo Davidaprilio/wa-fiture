@@ -2,15 +2,15 @@
 
 namespace Quods\Whatsapp;
 
-use Quods\Whatsapp\Models\Device;
+use Quods\Whatsapp\Models\WaDevice;
 
 class WhatsappService
 {
-    protected Device $device;
+    protected WaDevice $device;
 
     protected $data = [];
 
-    public static function device(Device $device)
+    public static function device(WaDevice $device)
     {
         $wa = new self();
         $wa->device = $device;
@@ -19,11 +19,11 @@ class WhatsappService
     }
 
     /**
-     * @param  int|string  $device_id Device untuk mengirim pesan
+     * @param  int|string  $device_id WaDevice untuk mengirim pesan
      */
     public static function token(int $device_id)
     {
-        $device = Device::find($device_id);
+        $device = WaDevice::find($device_id);
         $wa = new self();
         $wa->device = $device;
 
@@ -32,21 +32,21 @@ class WhatsappService
 
     public function cpu()
     {
-        $device = Device::first();
+        $device = WaDevice::first();
 
         return self::device($device)->curl('cpu', 'GET');
     }
 
     public function list()
     {
-        $device = Device::first();
+        $device = WaDevice::first();
 
         return self::device($device)->curl('api/devices', 'GET');
     }
 
     public static function servers()
     {
-        $device = Device::first();
+        $device = WaDevice::first();
 
         return self::device($device)->curl('api/servers', 'GET');
     }
@@ -200,7 +200,7 @@ class WhatsappService
         } else {
             return (object) [
                 'status' => false,
-                'message' => 'Device not found',
+                'message' => 'WaDevice not found',
                 'data' => $this->data,
             ];
         }

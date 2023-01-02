@@ -3,8 +3,8 @@
 namespace Quods\Whatsapp;
 
 use Carbon\Carbon;
-use Quods\Whatsapp\Models\Device;
-use Quods\Whatsapp\Models\Message;
+use Quods\Whatsapp\Models\WaDevice;
+use Quods\Whatsapp\Models\WaMessage;
 use Illuminate\Support\Str;
 
 /**
@@ -14,7 +14,7 @@ class MessageBuilder
 {
     private string $title;
 
-    private ?Device $device;
+    private ?WaDevice $device;
 
     private ?int $user_id;
 
@@ -56,12 +56,12 @@ class MessageBuilder
 
     public function __construct($device, int $length_process_id = 20)
     {
-        if ($device instanceof Device) {
+        if ($device instanceof WaDevice) {
             $this->device = $device;
         } elseif (is_numeric($device)) {
-            $this->device = Device::find($device);
+            $this->device = WaDevice::find($device);
         } else {
-            throw new \Exception('Device not found, please check your device id or instance of Device Model');
+            throw new \Exception('WaDevice not found, please check your device id or instance of WaDevice Model');
         }
 
         $this->user_id = $this->device->user_id;
@@ -91,7 +91,7 @@ class MessageBuilder
     public function limitQuota(int $limit, bool $stop_after_limit = true, array $type_state = ['sent', 'limit', 'not-wa', 'read', 'creating', 'sending']): self
     {
         $this->limit_quota = $limit;
-        $this->message_today = Message::zu($this->user_id)
+        $this->message_today = WaMessage::zu($this->user_id)
             ->today()
             ->whereIn('status', $type_state)
             ->count() ?? 0;
@@ -270,7 +270,7 @@ class MessageBuilder
     {
         $this->add($phone, $data);
         if (count($this->data) > 0) {
-            Message::zu($this->user_id, $this->auto_create_table)->create($this->data);
+            WaMessage::zu($this->user_id, $this->auto_create_table)->create($this->data);
         }
 
         return $this;
@@ -283,6 +283,6 @@ class MessageBuilder
 
     public function save()
     {
-        return Message::zu($this->user_id, $this->auto_create_table)->insert($this->results);
+        return WaMessage::zu($this->user_id, $this->auto_create_table)->insert($this->results);
     }
 }

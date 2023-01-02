@@ -3,11 +3,11 @@
 namespace Quods\Whatsapp\Models;
 
 use Quods\Whatsapp\Traits\NotificationHasWhatsapp;
-use Illuminate\Database\Eloquent\Casts\AsArrayObject;
+use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Notification extends Model
+class WaNotification extends Model
 {
     use HasFactory,
         NotificationHasWhatsapp;
@@ -16,6 +16,6 @@ class Notification extends Model
 
     protected $casts = [
         'enable' => 'boolean',
-        'variable' => AsArrayObject::class,
+        'variable' => AsCollection::class,
     ];
 }
